@@ -20,6 +20,7 @@ public class Main2Activity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         mediaPlayer = MediaPlayer.create(this, R.raw.gameofthrones);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
     }
 

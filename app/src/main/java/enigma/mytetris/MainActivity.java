@@ -3,6 +3,7 @@ package enigma.mytetris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-
+    MediaPlayer mediaPlayer;
     Tablero tab= new Tablero();
     Figura fig= new Figura();
     Timer timer = new Timer();
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mediaPlayer= MediaPlayer.create(this, R.raw.gameofthrones2);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
         RelativeLayout rel= findViewById(R.id.relativeLay);
         switch (casa){
             case 1: rel.setBackgroundResource(R.drawable.starkfondo);
@@ -133,9 +136,10 @@ public class MainActivity extends AppCompatActivity {
             tab.termina=false;
             timer.cancel();
             tiempo.cancel();
+            mediaPlayer.stop();
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "Juego de Tronos Terminado\n"+"Duración: "+cantTiempo+" segundos", Toast.LENGTH_SHORT);
+                            "Builder of Thrones Terminado\n"+"Duración: "+cantTiempo+" segundos", Toast.LENGTH_SHORT);
 
             toast1.show();
             this.finish();
@@ -165,12 +169,10 @@ public class MainActivity extends AppCompatActivity {
     public void mueveDer(View view){
         fig.mover(6, tab.tabla);
         tab.actualizarTablero(fig);
-
     }
 
     public void rota(View view){
         rotar=true;
-
     }
 
     public void aumentarVelocidad(View view){
@@ -182,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == event.KEYCODE_BACK) {
+            mediaPlayer.stop();
             timer.cancel();
             tiempo.cancel();
             this.finish();
