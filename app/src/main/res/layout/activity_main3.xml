@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gameofthones"
+    tools:context="enigma.mytetris.Main3Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="19dp"
+            android:text="Como Jugar:\n la pantalla se divide en tres secciones\n
+            1) la seccion superior de la pantalla permite a las piezas rotar\n
+            2) la seccion de en medio se divide en dos, ambas permiten mover la pieza a su respectivo lado
+            3) la seccion inferior permite que la pieza baje con mayor velocidad"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/textView3"
+            android:layout_marginEnd="52dp"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/pantalla" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
