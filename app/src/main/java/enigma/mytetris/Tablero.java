@@ -12,7 +12,9 @@ public class Tablero {
     Celda [][]tabla= new Celda[20][10];
     Figura old= new Figura();
     static boolean termina= false;
+    static boolean esIzq= false;
     boolean colision= false;
+
 
     public Tablero() {
         for(int i=0; i<20; i++){
@@ -26,7 +28,7 @@ public class Tablero {
         if(!colision) {
             for (Celda c : old.figura) {
                 if (c.posY >= 0) {
-                    Log.d("Oldl", c.posY + "/" + c.posX);
+                    Log.d("ERROR:",c.posX+"");
                     tabla[c.posY][c.posX].rotar = 0;
                     tabla[c.posY][c.posX].casa = 0;
                 }
@@ -37,9 +39,24 @@ public class Tablero {
             colision=false;
             old= new Figura();
         }
+        for (Celda c: fig.figura){
+            if(c.posX<0){
+                old = new Figura(fig.casa, fig.tipo, fig.posX+1, fig.posY, fig.rotado);
+                for (Celda d: fig.figura) {
+                    d.setPosX(d.getPosX()+1);
+                }
+            }
+            else if(c.posX>=10){
+                old = new Figura(fig.casa, fig.tipo, fig.posX-1, fig.posY, fig.rotado);
+                    for (Celda d: fig.figura) {
+                        d.setPosX(d.getPosX()-1);
+                    }
+
+            }
+        }
         for (Celda c: fig.figura) {
             if(c.posY>=0){
-                Log.d("newl", c.imagen+"/");
+                Log.d("ESTE", ""+c.posX);
                 tabla[c.posY][c.posX].rotar=c.rotar;
                 tabla[c.posY][c.posX].casa=c.casa;}
         }
@@ -78,7 +95,6 @@ public class Tablero {
     public void quitar(Figura fig){
         for (Celda c : old.figura) {
             if (c.posY >= 0) {
-                Log.d("Oldl", c.posY + "/" + c.posX);
                 tabla[c.posY][c.posX].rotar = 0;
                 tabla[c.posY][c.posX].casa = 1;
             }
@@ -87,7 +103,6 @@ public class Tablero {
     public void actualizarTableroRote(Figura fig){
         for (Celda c: fig.figura) {
             if(c.posY>=0){
-                Log.d("newl", c.imagen+"/");
                 tabla[c.posY][c.posX].rotar=c.rotar;
                 tabla[c.posY][c.posX].casa=c.casa;}
         }
@@ -137,7 +152,14 @@ public class Tablero {
                 if(tabla[j][i].casa==-1)
                     est=true;}
             else{
-                est=true;
+
+                if(i<0){
+                   esIzq=true;
+                    est=true;}
+                else if(i>=10){
+                    esIzq=false;
+                    est=true;}
+
             }
         }
         return est;

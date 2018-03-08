@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mediaPlayer= MediaPlayer.create(this, R.raw.gameofthrones2);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+
         RelativeLayout rel= findViewById(R.id.relativeLay);
         switch (casa){
             case 1: rel.setBackgroundResource(R.drawable.starkfondo);
@@ -58,15 +56,11 @@ public class MainActivity extends AppCompatActivity {
         Random rand = new Random();
         int n = rand.nextInt(7);
         fig= new Figura(casa,(n+1),5,-2, 0);
-        Log.d("Llega", (n+1)+"");
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-
-        Log.d("width ",width+"");
-        Log.d("height ",height+"");
         GridLayout gridLayout =  findViewById(R.id.gridView);
 
         int total = 200;
@@ -113,11 +107,44 @@ public class MainActivity extends AppCompatActivity {
         }, 0, 1000);
 
     }
+    public void onResume(){
+        super.onResume();
+        mediaPlayer= MediaPlayer.create(this, R.raw.gameofthrones2);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.stop();
+    }
+
 
     public void refresh(){
         if(!tab.termina){
         if(!tab.choque(fig)){
         if(rotar && !(tab.choqueRotado(fig))){
+            fig.rotado++;
+            fig.rotar();
+            rotar= false;
+        }
+        else if(rotar){
+            if(tab.esIzq){
+                while(tab.choqueRotado(fig))
+                    fig.mover(6,tab.tabla);
+
+            }
+            else{
+                while(tab.choqueRotado(fig))
+                    fig.mover(4,tab.tabla);
+            }
             fig.rotado++;
             fig.rotar();
             rotar= false;

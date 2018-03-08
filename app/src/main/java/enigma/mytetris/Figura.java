@@ -105,8 +105,8 @@ public class Figura {
     }
 
     public void rotar(){
+        String s="";
         if(tipo!=6){
-        try{
         for (Celda c: figura) {
             switch (c.rotar){
                 case 1: c.setRotar(3, posX, posY);
@@ -134,16 +134,7 @@ public class Figura {
             }
 
         }
-            for (Celda c: figura){
-                if(c.getPosX()<0 || c.getPosX()>=10){
-                    throw new NullPointerException();
-                }
-            }
-
         }
-        catch (NullPointerException e){
-
-        }}
     }
     public void mover(int mov, Celda [][]tab){
             if (mov == 4) {

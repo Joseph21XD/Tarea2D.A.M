@@ -24,6 +24,18 @@ public class Main2Activity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.stop();
+    }
+
     public void stark(View view){
         mediaPlayer.stop();
         MainActivity.casa=1;
